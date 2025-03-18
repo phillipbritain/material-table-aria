@@ -108,12 +108,13 @@ export interface DetailPanel<RowData extends object> {
 
 export interface Action<RowData extends object> {
   disabled?: boolean;
-  icon: string | (() => React.ReactElement<any>) | SvgIconComponent;
+  icon?: string | (() => React.ReactElement<any>) | SvgIconComponent;
   isFreeAction?: boolean;
-  position?: "auto" | "toolbar" | "toolbarOnSelect" | "row";
+  position?: "auto" | "toolbar" | "toolbarOnSelect" | "row" | "underToolbar";
   tooltip?: string;
   onClick: (event: any, data: RowData | RowData[]) => void;
   iconProps?: IconProps;
+  buttonProps?: object;
   hidden?: boolean;
 }
 

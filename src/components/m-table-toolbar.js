@@ -312,6 +312,22 @@ export class MTableToolbar extends React.Component {
     );
   }
 
+  renderUnderToolbarActions() {
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.underToolbarActions}>
+          <this.props.components.Actions
+            actions={
+              this.props.actions &&
+              this.props.actions.filter((a) => a.position === "underToolbar")
+            }
+            components={this.props.components}
+          />
+      </div>
+    );
+  }
+
   renderToolbarTitle(title) {
     const { classes } = this.props;
     const toolBarTitle =
@@ -353,21 +369,24 @@ export class MTableToolbar extends React.Component {
         ? this.props.title
         : null;
     return (
-      <Toolbar
-        className={classNames(classes.root, {
-          [classes.highlight]:
-            this.props.showTextRowsSelected &&
-            this.props.selectedRows &&
-            this.props.selectedRows.length > 0,
-        })}
-      >
-        {title && this.renderToolbarTitle(title)}
-        {this.props.searchFieldAlignment === "left" && this.renderSearch()}
-        {this.props.toolbarButtonAlignment === "left" && this.renderActions()}
-        <div className={classes.spacer} />
-        {this.props.searchFieldAlignment === "right" && this.renderSearch()}
-        {this.props.toolbarButtonAlignment === "right" && this.renderActions()}
-      </Toolbar>
+      <>
+        <Toolbar
+          className={classNames(classes.root, {
+            [classes.highlight]:
+              this.props.showTextRowsSelected &&
+              this.props.selectedRows &&
+              this.props.selectedRows.length > 0,
+          })}
+        >
+          {title && this.renderToolbarTitle(title)}
+          {this.props.searchFieldAlignment === "left" && this.renderSearch()}
+          {this.props.toolbarButtonAlignment === "left" && this.renderActions()}
+          <div className={classes.spacer} />
+          {this.props.searchFieldAlignment === "right" && this.renderSearch()}
+          {this.props.toolbarButtonAlignment === "right" && this.renderActions()}
+        </Toolbar>
+        {renderUnderToolbarActions()}
+      </>
     );
   }
 }
@@ -455,6 +474,9 @@ export const styles = (theme) => ({
     flex: "1 1 10%",
   },
   actions: {
+    color: theme.palette.text.secondary,
+  },
+  underToolbarActions: {
     color: theme.palette.text.secondary,
   },
   title: {

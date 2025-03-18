@@ -37,38 +37,47 @@ class MTableAction extends React.Component {
       }
     };
 
-    const icon =
-      typeof action.icon === "string" ? (
-        <Icon {...action.iconProps}>{action.icon}</Icon>
-      ) : typeof action.icon === "function" ? (
-        action.icon({ ...action.iconProps, disabled: disabled })
-      ) : (
-        <action.icon />
-      );
+    let component;
 
-    const button = (
-      <IconButton
-        size={this.props.size}
-        color="inherit"
-        disabled={disabled}
-        onClick={handleOnClick}
-      >
-        {icon}
-      </IconButton>
-    );
+    if(action.icon){
+      const icon =
+        typeof action.icon === "string" ? (
+          <Icon {...action.iconProps}>{action.icon}</Icon>
+        ) : typeof action.icon === "function" ? (
+          action.icon({ ...action.iconProps, disabled: disabled })
+        ) : (
+          <action.icon />
+        );
+
+      component = (
+        <IconButton
+          size={this.props.size}
+          color="inherit"
+          disabled={disabled}
+          onClick={handleOnClick}
+        >
+          {icon}
+        </IconButton>
+      );
+    }
+    else if(action.buttonProps){
+      component = (
+        <Button size={this.props.size} disabled={disabled} onClick={handleOnClick} {...action.buttonProps} />
+      )
+    }
 
     if (action.tooltip) {
       // fix for issue #1049
       // https://github.com/mbrn/material-table/issues/1049
       return disabled ? (
         <Tooltip title={action.tooltip}>
-          <span>{button}</span>
+          <span>{component}</span>
         </Tooltip>
       ) : (
-        <Tooltip title={action.tooltip} aria-label={action.tooltip}>{button}</Tooltip>
+        <Tooltip title={action.tooltip} aria-label={action.tooltip}>{component}</Tooltip>
       );
     } else {
-      return button;
+      return component;
     }
   }
 }
