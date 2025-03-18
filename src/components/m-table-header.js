@@ -137,6 +137,7 @@ export class MTableHeader extends React.Component {
               IconComponent={this.props.icons.SortArrow}
               active={this.props.orderBy === columnDef.tableData.id}
               direction={this.props.orderDirection || "asc"}
+              hideSortIcon={true}
               aria-disabled={true}
               onClick={() => {
                 const orderDirection =
