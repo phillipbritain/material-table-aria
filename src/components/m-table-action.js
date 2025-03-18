@@ -65,7 +65,7 @@ class MTableAction extends React.Component {
           <span>{button}</span>
         </Tooltip>
       ) : (
-        <Tooltip title={action.tooltip}>{button}</Tooltip>
+        <Tooltip title={action.tooltip} aria-label={action.tooltip}>{button}</Tooltip>
       );
     } else {
       return button;
