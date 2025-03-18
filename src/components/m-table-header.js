@@ -137,7 +137,7 @@ export class MTableHeader extends React.Component {
               IconComponent={this.props.icons.SortArrow}
               active={this.props.orderBy === columnDef.tableData.id}
               direction={this.props.orderDirection || "asc"}
-              aria-sort={this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : "none"}
+              aria-disabled={true}
               onClick={() => {
                 const orderDirection =
                   columnDef.tableData.id !== this.props.orderBy
@@ -210,6 +210,7 @@ export class MTableHeader extends React.Component {
             className={this.props.classes.header}
             style={this.getCellStyle(columnDef)}
             size={size}
+            aria-sort={this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : "none"}
           >
             {content}
           </TableCell>
