@@ -137,6 +137,7 @@ export class MTableHeader extends React.Component {
               IconComponent={this.props.icons.SortArrow}
               active={this.props.orderBy === columnDef.tableData.id}
               direction={this.props.orderDirection || "asc"}
+              aria-sort={this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : "none"}
               onClick={() => {
                 const orderDirection =
                   columnDef.tableData.id !== this.props.orderBy
@@ -267,6 +268,7 @@ export class MTableHeader extends React.Component {
             onChange={(event, checked) =>
               this.props.onAllSelected && this.props.onAllSelected(checked)
             }
+            inputProps={{"aria-label": "Select All"}}
             {...this.props.options.headerSelectionProps}
           />
         )}

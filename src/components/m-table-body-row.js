@@ -143,6 +143,7 @@ export default class MTableBodyRow extends React.Component {
             this.props.onRowSelected(event, this.props.path, this.props.data)
           }
           style={styles}
+          inputProps={{"aria-label": "Select"}}
           {...checkboxProps}
         />
       </TableCell>
