@@ -55,6 +55,7 @@ class MTableBody extends React.Component {
               addColumn
             )}
             key="empty-"
+            role="alert"
           >
             {localization.emptyDataSourceMessage}
           </TableCell>

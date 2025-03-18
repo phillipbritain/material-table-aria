@@ -292,6 +292,11 @@ export const propTypes = {
       PropTypes.func,
       RefComponent,
     ]),
+    Sortable: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.func,
+      RefComponent,
+    ]),
   }),
   isLoading: PropTypes.bool,
   title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),

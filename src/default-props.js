@@ -193,6 +193,11 @@ export const defaultProps = {
         replay
       </Icon>
     )),
+    Sortable: React.forwardRef((props, ref) => (
+      <Icon {...props} ref={ref}>
+        swap_vert
+      </Icon>
+    )),
     /* eslint-enable react/display-name */
   },
   isLoading: false,
