@@ -160,8 +160,10 @@ export class MTableHeader extends React.Component {
                 );
               }}
             >
-              <this.props.icons.Sortable />
-              {content}
+              <>
+                <this.props.icons.Sortable />
+                {content}
+              </>
             </TableSortLabel>
           );
         }

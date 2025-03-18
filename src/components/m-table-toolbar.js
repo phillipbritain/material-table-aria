@@ -385,7 +385,7 @@ export class MTableToolbar extends React.Component {
           {this.props.searchFieldAlignment === "right" && this.renderSearch()}
           {this.props.toolbarButtonAlignment === "right" && this.renderActions()}
         </Toolbar>
-        {renderUnderToolbarActions()}
+        {this.renderUnderToolbarActions()}
       </>
     );
   }
