@@ -131,14 +131,23 @@ export class MTableHeader extends React.Component {
           );
         }
 
+        let ariaSort;
+
         if (columnDef.sorting !== false && this.props.sorting) {
+          
+          if(this.props.orderBy === columnDef.tableData.id){
+            ariaSort = this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : null;
+          }
+          else {
+            ariaSort = "none";
+          }
+
           content = (
             <TableSortLabel
               IconComponent={this.props.icons.SortArrow}
               active={this.props.orderBy === columnDef.tableData.id}
               direction={this.props.orderDirection || "asc"}
               hideSortIcon={true}
-              aria-disabled={true}
               onClick={() => {
                 const orderDirection =
                   columnDef.tableData.id !== this.props.orderBy
@@ -207,6 +216,9 @@ export class MTableHeader extends React.Component {
             : ["numeric", "currency"].indexOf(columnDef.type) !== -1
             ? "right"
             : "left";
+
+
+        
         return (
           <TableCell
             key={columnDef.tableData.id}
@@ -214,7 +226,7 @@ export class MTableHeader extends React.Component {
             className={this.props.classes.header}
             style={this.getCellStyle(columnDef)}
             size={size}
-            aria-sort={this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : "none"}
+            aria-sort={ariaSort}
           >
             {content}
           </TableCell>

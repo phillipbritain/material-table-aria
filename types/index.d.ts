@@ -358,6 +358,7 @@ export interface Options<RowData extends object> {
   toolbarButtonAlignment?: "left" | "right";
   detailPanelColumnAlignment?: "left" | "right";
   cspNonce?: string;
+  showTotalCountOnly?: boolean;
 }
 
 export interface Localization {

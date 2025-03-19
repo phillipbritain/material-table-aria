@@ -727,7 +727,8 @@ export default class MaterialTable extends React.Component {
 
   renderFooter() {
     const props = this.getProps();
-    if (props.options.paging) {
+
+    if (props.options.paging || props.options.showTotalCountOnly) {
       const localization = {
         ...MaterialTable.defaultProps.localization.pagination,
         ...this.props.localization.pagination,
@@ -785,6 +786,7 @@ export default class MaterialTable extends React.Component {
                       showFirstLastPageButtons={
                         props.options.showFirstLastPageButtons
                       }
+                      showTotalCountOnly={props.options.showTotalCountOnly}
                     />
                   ) : (
                     <MTableSteppedPagination
@@ -794,6 +796,7 @@ export default class MaterialTable extends React.Component {
                       showFirstLastPageButtons={
                         props.options.showFirstLastPageButtons
                       }
+                      showTotalCountOnly={props.options.showTotalCountOnly}
                     />
                   )
                 }
@@ -804,6 +807,7 @@ export default class MaterialTable extends React.Component {
                     .replace("{count}", row.count)
                 }
                 labelRowsPerPage={localization.labelRowsPerPage}
+                showTotalCountOnly={props.options.showTotalCountOnly}
               />
             </TableRow>
           </TableFooter>
@@ -866,6 +870,7 @@ export default class MaterialTable extends React.Component {
           options={props.options}
           onColumnResized={this.onColumnResized}
           scrollWidth={this.state.width}
+          isTableLoading={this.state.isLoading}
         />
       )}
       <props.components.Body
@@ -906,6 +911,7 @@ export default class MaterialTable extends React.Component {
         bulkEditOpen={this.dataManager.bulkEditOpen}
         onBulkEditRowChanged={this.dataManager.onBulkEditRowChanged}
         scrollWidth={this.state.width}
+        isTableLoading={this.state.isLoading}
       />
     </Table>
   );

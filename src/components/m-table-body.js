@@ -65,10 +65,10 @@ class MTableBody extends React.Component {
       return (
         <React.Fragment>
           {[...Array(emptyRowCount)].map((r, index) => (
-            <TableRow style={{ height: rowHeight }} key={"empty-" + index} />
+            <TableRow style={{ height: rowHeight }} key={"empty-" + index} role="alert" />
           ))}
           {emptyRowCount > 0 && (
-            <TableRow style={{ height: 1 }} key={"empty-last1"} />
+            <TableRow style={{ height: 1 }} key={"empty-last1"} role="alert" />
           )}
         </React.Fragment>
       );
@@ -289,7 +289,7 @@ class MTableBody extends React.Component {
             scrollWidth={this.props.scrollWidth}
           />
         )}
-        {this.renderEmpty(emptyRowCount, renderData)}
+        {!this.props.isTableLoading && this.renderEmpty(emptyRowCount, renderData)}
       </TableBody>
     );
   }

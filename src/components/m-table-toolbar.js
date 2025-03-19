@@ -332,6 +332,13 @@ export class MTableToolbar extends React.Component {
 
   renderToolbarTitle(title) {
     const { classes } = this.props;
+
+    let usingSelectedText = false;
+
+    if(this.props.showTextRowsSelected && this.props.selectedRows && this.props.selectedRows.length > 0){
+      usingSelectedText = true;
+    }
+
     const toolBarTitle =
       typeof title === "string" ? (
         <Typography
@@ -348,7 +355,7 @@ export class MTableToolbar extends React.Component {
         title
       );
 
-    return <div className={classes.title}>{toolBarTitle}</div>;
+    return <div className={classes.title} role={usingSelectedText ? "alert" : undefined}>{toolBarTitle}</div>;
   }
 
   render() {
