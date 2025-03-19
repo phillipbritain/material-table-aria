@@ -1137,8 +1137,6 @@ export default class MaterialTable extends React.Component {
             ? this.renderFooter()
             : null}
 
-          {this.renderFooter2()}
-
           {(this.state.isLoading || props.isLoading) &&
             props.options.loadingType === "overlay" && (
               <div
