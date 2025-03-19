@@ -2,6 +2,7 @@
 import Table from "@material-ui/core/Table";
 import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import DoubleScrollbar from "react-double-scrollbar";
 import * as React from "react";
@@ -728,7 +729,7 @@ export default class MaterialTable extends React.Component {
   renderFooter() {
     const props = this.getProps();
 
-    if (props.options.paging || props.options.showTotalCountOnly) {
+    if (props.options.paging || props.options.showTotalCount) {
       const localization = {
         ...MaterialTable.defaultProps.localization.pagination,
         ...this.props.localization.pagination,
@@ -765,8 +766,8 @@ export default class MaterialTable extends React.Component {
                   this.isRemoteData() ? this.state.query.totalCount : totalCount
                 }
                 icons={props.icons}
-                rowsPerPage={this.state.pageSize}
-                rowsPerPageOptions={props.options.pageSizeOptions}
+                rowsPerPage={!props.options.paging ? -1 : this.state.pageSize}
+                rowsPerPageOptions={!props.options.paging ? -1 : props.options.pageSizeOptions}
                 SelectProps={{
                   renderValue: (value) => (
                     <div style={{ padding: "0px 5px" }}>
@@ -786,7 +787,7 @@ export default class MaterialTable extends React.Component {
                       showFirstLastPageButtons={
                         props.options.showFirstLastPageButtons
                       }
-                      showTotalCountOnly={props.options.showTotalCountOnly}
+                      showTotalCount={showTotalCount}
                     />
                   ) : (
                     <MTableSteppedPagination
@@ -796,7 +797,7 @@ export default class MaterialTable extends React.Component {
                       showFirstLastPageButtons={
                         props.options.showFirstLastPageButtons
                       }
-                      showTotalCountOnly={props.options.showTotalCountOnly}
+                      showTotalCount={showTotalCount}
                     />
                   )
                 }
@@ -807,7 +808,6 @@ export default class MaterialTable extends React.Component {
                     .replace("{count}", row.count)
                 }
                 labelRowsPerPage={localization.labelRowsPerPage}
-                showTotalCountOnly={props.options.showTotalCountOnly}
               />
             </TableRow>
           </TableFooter>
@@ -1136,6 +1136,8 @@ export default class MaterialTable extends React.Component {
           props.options.paginationPosition === "both"
             ? this.renderFooter()
             : null}
+
+          {this.renderFooter2()}
 
           {(this.state.isLoading || props.isLoading) &&
             props.options.loadingType === "overlay" && (

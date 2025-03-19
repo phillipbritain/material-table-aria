@@ -35,14 +35,14 @@ class MTablePaginationInner extends React.Component {
       rowsPerPage,
       theme,
       showFirstLastPageButtons,
-      showTotalCountOnly
+      showTotalCount
     } = this.props;
     const localization = {
       ...MTablePaginationInner.defaultProps.localization,
       ...this.props.localization,
     };
     
-    if(showTotalCountOnly){
+    if(showTotalCount){
       return (
         <div className={classes.root}>
         <Typography
@@ -175,6 +175,7 @@ MTablePaginationInner.propTypes = {
   localization: PropTypes.object,
   theme: PropTypes.any,
   showFirstLastPageButtons: PropTypes.bool,
+  showTotalCount: PropTypes.bool
 };
 
 MTablePaginationInner.defaultProps = {
