@@ -315,13 +315,15 @@ export class MTableToolbar extends React.Component {
   renderUnderToolbarActions() {
     const { classes } = this.props;
 
+    const underToolbarActions = this.props.actions?.filter((a) => a.position === "underToolbar");
+    if(!underToolbarActions || !underToolbarActions.length){
+      return null;
+    }
+
     return (
       <div className={classes.underToolbarActions}>
           <this.props.components.Actions
-            actions={
-              this.props.actions &&
-              this.props.actions.filter((a) => a.position === "underToolbar")
-            }
+            actions={underToolbarActions}
             components={this.props.components}
           />
       </div>
@@ -478,6 +480,7 @@ export const styles = (theme) => ({
   },
   underToolbarActions: {
     color: theme.palette.text.secondary,
+    padding: theme.spacing(1)
   },
   title: {
     overflow: "hidden",
