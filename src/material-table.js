@@ -788,6 +788,7 @@ export default class MaterialTable extends React.Component {
                         props.options.showFirstLastPageButtons
                       }
                       showTotalCount={props.options.showTotalCount}
+                      isTableLoading={this.state.isLoading}
                     />
                   ) : (
                     <MTableSteppedPagination
@@ -798,6 +799,7 @@ export default class MaterialTable extends React.Component {
                         props.options.showFirstLastPageButtons
                       }
                       showTotalCount={props.options.showTotalCount}
+                      isTableLoading={this.state.isLoading}
                     />
                   )
                 }
