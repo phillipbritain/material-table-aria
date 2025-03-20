@@ -148,6 +148,7 @@ export class MTableHeader extends React.Component {
               active={this.props.orderBy === columnDef.tableData.id}
               direction={this.props.orderDirection || "asc"}
               hideSortIcon={true}
+              title={`Sort by ${columnDef.title}`}
               onClick={() => {
                 const orderDirection =
                   columnDef.tableData.id !== this.props.orderBy
