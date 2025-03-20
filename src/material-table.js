@@ -731,9 +731,9 @@ export default class MaterialTable extends React.Component {
 
     if(props.options.showTotalCount){
 
-      const totalCountText = localization.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows 
+      const totalCountText = this.props.localization.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows 
         ? `${this.props.count} row(s)` 
-        : localization.labelDisplayedRows.replace("{0}", this.props.count);
+        : this.props.localization.labelDisplayedRows.replace("{0}", this.props.count);
 
       return (
         <div>
