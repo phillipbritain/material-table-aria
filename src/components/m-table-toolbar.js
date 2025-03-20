@@ -312,24 +312,6 @@ export class MTableToolbar extends React.Component {
     );
   }
 
-  renderUnderToolbarActions() {
-    const { classes } = this.props;
-
-    const underToolbarActions = this.props.actions?.filter((a) => a.position === "underToolbar");
-    if(!underToolbarActions || !underToolbarActions.length){
-      return null;
-    }
-
-    return (
-      <div className={classes.underToolbarActions}>
-          <this.props.components.Actions
-            actions={underToolbarActions}
-            components={this.props.components}
-          />
-      </div>
-    );
-  }
-
   renderToolbarTitle(title) {
     const { classes } = this.props;
 
@@ -379,7 +361,6 @@ export class MTableToolbar extends React.Component {
         ? this.props.title
         : null;
     return (
-      <>
         <Toolbar
           className={classNames(classes.root, {
             [classes.highlight]:
@@ -395,8 +376,6 @@ export class MTableToolbar extends React.Component {
           {this.props.searchFieldAlignment === "right" && this.renderSearch()}
           {this.props.toolbarButtonAlignment === "right" && this.renderActions()}
         </Toolbar>
-        {this.renderUnderToolbarActions()}
-      </>
     );
   }
 }
@@ -485,10 +464,6 @@ export const styles = (theme) => ({
   },
   actions: {
     color: theme.palette.text.secondary,
-  },
-  underToolbarActions: {
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(1)
   },
   title: {
     overflow: "hidden",

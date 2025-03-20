@@ -730,10 +730,26 @@ export default class MaterialTable extends React.Component {
   renderFooter() {
     const props = this.getProps();
 
+    const localization = {
+      ...MaterialTable.defaultProps.localization.pagination,
+      ...this.props.localization.pagination,
+    };
+
+    const isOutsidePageNumbers = this.isOutsidePageNumbers(props);
+    const currentPage = isOutsidePageNumbers
+      ? Math.min(
+          props.page,
+          Math.floor(props.totalCount / this.state.pageSize)
+        )
+      : this.state.currentPage;
+    const totalCount = isOutsidePageNumbers
+      ? props.totalCount
+      : this.state.data.length;
+
     if(props.options.showTotalCount){
-      const totalCountText = (!props.localization.pagination.labelDisplayedRows || props.localization.pagination.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows) 
-        ? `${props.totalCount} row(s)` 
-        : props.localization.pagination.labelDisplayedRows.replace("{0}", props.totalCount);
+      const totalCountText = !localization.pagination.labelDisplayedRows || localization.pagination.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows
+        ? `${totalCount} row(s)` 
+        : localization.pagination.labelDisplayedRows.replace("{0}", totalCount);
 
       return (
         <div>
@@ -754,22 +770,6 @@ export default class MaterialTable extends React.Component {
     }
 
     if (props.options.paging) {
-      const localization = {
-        ...MaterialTable.defaultProps.localization.pagination,
-        ...this.props.localization.pagination,
-      };
-
-      const isOutsidePageNumbers = this.isOutsidePageNumbers(props);
-      const currentPage = isOutsidePageNumbers
-        ? Math.min(
-            props.page,
-            Math.floor(props.totalCount / this.state.pageSize)
-          )
-        : this.state.currentPage;
-      const totalCount = isOutsidePageNumbers
-        ? props.totalCount
-        : this.state.data.length;
-
       return (
         <Table>
           <TableFooter style={{ display: "grid" }}>
@@ -1039,6 +1039,7 @@ export default class MaterialTable extends React.Component {
           props.options.footerPosition === "both"
             ? this.renderFooter()
             : null}
+          <UnderToolbarActions actions={props.actions} components={props.components} />
           {props.options.grouping && (
             <props.components.Groupbar
               icons={props.icons}
@@ -1200,7 +1201,7 @@ export default class MaterialTable extends React.Component {
   }
 }
 
-var style = () => ({
+var style = (theme) => ({
   horizontalScrollContainer: {
     "& ::-webkit-scrollbar": {
       "-webkit-appearance": "none",
@@ -1214,6 +1215,10 @@ var style = () => ({
       backgroundColor: "rgba(0, 0, 0, .3)",
     },
   },
+  underToolbarActions:{
+    color: theme.palette.text.secondary,
+    padding: theme.spacing(1)
+  }
 });
 
 const ScrollBar = withStyles(style)(({ double, children, classes }) => {
@@ -1229,4 +1234,20 @@ const ScrollBar = withStyles(style)(({ double, children, classes }) => {
       </div>
     );
   }
+});
+
+const UnderToolbarActions = withStyles(style)(({ actions, components, classes }) => {
+  const underToolbarActions = actions?.filter((a) => a.position === "underToolbar");
+  if(!underToolbarActions || !underToolbarActions.length){
+    return null;
+  }
+
+  return (
+    <div className={classes.underToolbarActions}>
+        <components.Actions
+          actions={underToolbarActions}
+          components={components}
+        />
+    </div>
+  );
 });
