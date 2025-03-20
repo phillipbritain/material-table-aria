@@ -731,10 +731,9 @@ export default class MaterialTable extends React.Component {
     const props = this.getProps();
 
     if(props.options.showTotalCount){
-
-      const totalCountText = this.props.localization.pagination.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows 
-        ? `${this.props.count} row(s)` 
-        : this.props.localization.pagination.labelDisplayedRows.replace("{0}", this.props.count);
+      const totalCountText = (!props.localization.pagination.labelDisplayedRows || props.localization.pagination.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows) 
+        ? `${props.totalCount} row(s)` 
+        : props.localization.pagination.labelDisplayedRows.replace("{0}", props.totalCount);
 
       return (
         <div>
@@ -994,10 +993,6 @@ export default class MaterialTable extends React.Component {
         <props.components.Container
           style={{ position: "relative", ...props.style }}
         >
-          {props.options.footerPosition === "top" ||
-          props.options.footerPosition === "both"
-            ? this.renderFooter()
-            : null}
           {props.options.toolbar && (
             <props.components.Toolbar
               actions={props.actions}
@@ -1040,6 +1035,10 @@ export default class MaterialTable extends React.Component {
               }}
             />
           )}
+          {props.options.footerPosition === "top" ||
+          props.options.footerPosition === "both"
+            ? this.renderFooter()
+            : null}
           {props.options.grouping && (
             <props.components.Groupbar
               icons={props.icons}
