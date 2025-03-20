@@ -34,37 +34,12 @@ class MTablePaginationInner extends React.Component {
       page,
       rowsPerPage,
       theme,
-      showFirstLastPageButtons,
-      showTotalCount,
-      isTableLoading
+      showFirstLastPageButtons
     } = this.props;
     const localization = {
       ...MTablePaginationInner.defaultProps.localization,
       ...this.props.localization,
     };
-
-    if(showTotalCount && isTableLoading){
-      return null;
-    }
-
-    if(showTotalCount){
-      return (
-        <div className={classes.root}>
-        <Typography
-          variant="caption"
-          style={{
-            flex: 1,
-            textAlign: "center",
-            alignSelf: "center",
-            flexBasis: "inherit",
-          }}
-          role="alert"
-        >
-          {localization.labelDisplayedRows.replace("{count}", this.props.count)}
-        </Typography>
-      </div>
-      )
-    }
 
     return (
       <div className={classes.root}>
@@ -180,7 +155,6 @@ MTablePaginationInner.propTypes = {
   localization: PropTypes.object,
   theme: PropTypes.any,
   showFirstLastPageButtons: PropTypes.bool,
-  showTotalCount: PropTypes.bool,
   isTableLoading: PropTypes.bool
 };
 

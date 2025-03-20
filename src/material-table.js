@@ -729,7 +729,31 @@ export default class MaterialTable extends React.Component {
   renderFooter() {
     const props = this.getProps();
 
-    if (props.options.paging || props.options.showTotalCount) {
+    if(props.options.showTotalCount){
+
+      const totalCountText = localization.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows 
+        ? `${this.props.count} row(s)` 
+        : localization.labelDisplayedRows.replace("{0}", this.props.count);
+
+      return (
+        <div>
+          <Typography
+            variant="h6"
+            style={{
+              visibility: this.state.isLoading ? "hidden" : "visible",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+            role="alert"
+          >
+            {totalCountText}
+          </Typography>
+      </div>
+      )
+    }
+
+    if (props.options.paging) {
       const localization = {
         ...MaterialTable.defaultProps.localization.pagination,
         ...this.props.localization.pagination,
@@ -787,8 +811,6 @@ export default class MaterialTable extends React.Component {
                       showFirstLastPageButtons={
                         props.options.showFirstLastPageButtons
                       }
-                      showTotalCount={props.options.showTotalCount}
-                      isTableLoading={this.state.isLoading}
                     />
                   ) : (
                     <MTableSteppedPagination
@@ -798,8 +820,6 @@ export default class MaterialTable extends React.Component {
                       showFirstLastPageButtons={
                         props.options.showFirstLastPageButtons
                       }
-                      showTotalCount={props.options.showTotalCount}
-                      isTableLoading={this.state.isLoading}
                     />
                   )
                 }
@@ -973,8 +993,8 @@ export default class MaterialTable extends React.Component {
         <props.components.Container
           style={{ position: "relative", ...props.style }}
         >
-          {props.options.paginationPosition === "top" ||
-          props.options.paginationPosition === "both"
+          {props.options.footerPosition === "top" ||
+          props.options.footerPosition === "both"
             ? this.renderFooter()
             : null}
           {props.options.toolbar && (
@@ -1134,8 +1154,8 @@ export default class MaterialTable extends React.Component {
                 </div>
               </div>
             )}
-          {props.options.paginationPosition === "bottom" ||
-          props.options.paginationPosition === "both"
+          {props.options.footerPosition === "bottom" ||
+          props.options.footerPosition === "both"
             ? this.renderFooter()
             : null}
 

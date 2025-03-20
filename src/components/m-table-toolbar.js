@@ -348,6 +348,7 @@ export class MTableToolbar extends React.Component {
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
+          role={usingSelectedText ? "alert" : undefined}
         >
           {title}
         </Typography>
@@ -355,7 +356,7 @@ export class MTableToolbar extends React.Component {
         title
       );
 
-    return <div className={classes.title} role={usingSelectedText ? "alert" : undefined}>{toolBarTitle}</div>;
+    return <div className={classes.title}>{toolBarTitle}</div>;
   }
 
   render() {

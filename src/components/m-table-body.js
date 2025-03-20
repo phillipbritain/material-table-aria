@@ -289,7 +289,8 @@ class MTableBody extends React.Component {
             scrollWidth={this.props.scrollWidth}
           />
         )}
-        {!this.props.isTableLoading && this.renderEmpty(emptyRowCount, renderData)}
+
+        {!this.props.isTableLoading && !this.props.options.showTotalCount && this.renderEmpty(emptyRowCount, renderData)}
       </TableBody>
     );
   }
