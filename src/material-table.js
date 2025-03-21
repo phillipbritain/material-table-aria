@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import DoubleScrollbar from "react-double-scrollbar";
 import * as React from "react";
-import { MTablePagination, MTableSteppedPagination } from "./components";
+import { MTablePagination, MTableSteppedPagination, MTableToolbar } from "./components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import DataManager from "./utils/data-manager";
 import { debounce } from "debounce";
