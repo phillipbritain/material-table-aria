@@ -1267,6 +1267,11 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, classes })
 const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, selectedRows, isLoading, showTextRowsSelected, showTotalCount, localization, totalCount, classes}) => {
   let text;
 
+  console.log("selectedRows", selectedRows);
+  console.log("showTextRowsSelected", showTextRowsSelected);
+  console.log("localization", localization);
+  console.log("data", data);
+
   if(showTextRowsSelected &&
     selectedRows &&
     selectedRows.length > 0){
@@ -1296,6 +1301,8 @@ const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, se
     if(!text){
       return null;
     }
+
+    console.log("text", text);
 
     return (
       <div className={classNames(classes.totalOrSelectionCountRoot, {
