@@ -993,11 +993,6 @@ export default class MaterialTable extends React.Component {
         <props.components.Container
           style={{ position: "relative", ...props.style }}
         >
-          {props.options.footerPosition === "top" ||
-          props.options.footerPosition === "both"
-            ? this.renderFooter()
-            : null}
-            
           {props.options.toolbar && (
             <props.components.Toolbar
               actions={props.actions}
@@ -1040,6 +1035,12 @@ export default class MaterialTable extends React.Component {
               }}
             />
           )}
+          
+          {props.options.footerPosition === "top" ||
+          props.options.footerPosition === "both"
+            ? this.renderFooter()
+            : null}
+            
           <UnderToolbarActions actions={props.actions} components={props.components} />
           {props.options.grouping && (
             <props.components.Groupbar
