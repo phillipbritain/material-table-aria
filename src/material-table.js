@@ -1015,8 +1015,7 @@ export default class MaterialTable extends React.Component {
           )}
 
           <TotalOrSelectionCount 
-            getProps={this.getProps} 
-            isOutsidePageNumbersFunc={this.isOutsidePageNumbers}
+            isOutsidePageNumbers={this.isOutsidePageNumbers(this.props)}
             data={this.state.data}
             selectedRows={this.state.selectedCount > 0
               ? this.state.originalData.filter((a) => {
@@ -1024,6 +1023,10 @@ export default class MaterialTable extends React.Component {
                 })
               : []}
             isLoading={this.state.isLoading}
+            showTextRowsSelected={this.props.options.showTextRowsSelected}
+            showTotalCount={this.props.options.showTotalCount}
+            localization={this.props.localization}
+            totalCount={this.props.totalCount}
           />
 
           {props.options.footerPosition === "top" ||
@@ -1258,17 +1261,15 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, classes })
   );
 });
 
-const TotalOrSelectionCount = withStyles(style)(({getProps, isOutsidePageNumbersFunc, data, selectedRows, isLoading}) => {
-  const props = getProps();
-
-  const localization = {
+const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, selectedRows, isLoading, showTextRowsSelected, showTotalCount, localization, totalCount}) => {
+  localization = {
     ...MTableToolbar.defaultProps.localization,
-    ...props.localization,
+    ...localization,
   };
 
   let text;
 
-  if(props.options.showTextRowsSelected &&
+  if(showTextRowsSelected &&
     selectedRows &&
     selectedRows.length > 0){
 
@@ -1286,10 +1287,9 @@ const TotalOrSelectionCount = withStyles(style)(({getProps, isOutsidePageNumbers
         );
       }
     }
-    else if(props.options.showTextRowsSelected || props.options.showTotalCount){
-      const isOutsidePageNumbers = isOutsidePageNumbersFunc(props);
-      const totalCount = isOutsidePageNumbers
-        ? props.totalCount
+    else if(showTextRowsSelected || showTotalCount){
+      totalCount = isOutsidePageNumbers
+        ? totalCount
         : data.length;
 
       text = localization.totalRowCount.replace("{0}", totalCount)
@@ -1302,7 +1302,7 @@ const TotalOrSelectionCount = withStyles(style)(({getProps, isOutsidePageNumbers
     return (
       <div className={classNames(classes.totalOrSelectionCountRoot, {
         [classes.totalOrSelectionCountHighlight]:
-          props.options.showTextRowsSelected &&
+          showTextRowsSelected &&
           selectedRows &&
           selectedRows.length > 0,
       })}>
