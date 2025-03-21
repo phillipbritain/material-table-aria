@@ -1023,13 +1023,13 @@ export default class MaterialTable extends React.Component {
                 })
               : []}
             isLoading={this.state.isLoading}
-            showTextRowsSelected={this.props.options.showTextRowsSelected}
-            showTotalCount={this.props.options.showTotalCount}
+            showTextRowsSelected={props.options.showTextRowsSelected}
+            showTotalCount={props.options.showTotalCount}
             localization={{
               ...MaterialTable.defaultProps.localization.toolbar,
               ...this.props.localization.toolbar,
             }}
-            totalCount={this.props.totalCount}
+            totalCount={props.totalCount}
           />
 
           {props.options.footerPosition === "top" ||
@@ -1266,11 +1266,6 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, classes })
 
 const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, selectedRows, isLoading, showTextRowsSelected, showTotalCount, localization, totalCount, classes}) => {
   let text;
-
-  console.log("selectedRows", selectedRows);
-  console.log("showTextRowsSelected", showTextRowsSelected);
-  console.log("localization", localization);
-  console.log("data", data);
 
   if(showTextRowsSelected &&
     selectedRows &&
