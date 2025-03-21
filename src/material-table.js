@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import DoubleScrollbar from "react-double-scrollbar";
 import * as React from "react";
-import { MTablePagination, MTableSteppedPagination, MTableToolbar } from "./components";
+import { MTablePagination, MTableSteppedPagination } from "./components";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import DataManager from "./utils/data-manager";
 import { debounce } from "debounce";
@@ -1025,7 +1025,10 @@ export default class MaterialTable extends React.Component {
             isLoading={this.state.isLoading}
             showTextRowsSelected={this.props.options.showTextRowsSelected}
             showTotalCount={this.props.options.showTotalCount}
-            localization={this.props.localization}
+            localization={{
+              ...MaterialTable.defaultProps.localization.toolbar,
+              ...this.props.localization.toolbar,
+            }}
             totalCount={this.props.totalCount}
           />
 
@@ -1262,11 +1265,6 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, classes })
 });
 
 const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, selectedRows, isLoading, showTextRowsSelected, showTotalCount, localization, totalCount}) => {
-  localization = {
-    ...MTableToolbar.defaultProps.localization,
-    ...localization,
-  };
-
   let text;
 
   if(showTextRowsSelected &&
