@@ -752,7 +752,7 @@ export default class MaterialTable extends React.Component {
         : localization.labelDisplayedRows.replace("{0}", totalCount);
 
       return (
-        <div>
+        <div style={{padding: "10px 15px"}}>
           <Typography
             variant="h6"
             style={{
