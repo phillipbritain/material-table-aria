@@ -1219,7 +1219,7 @@ var style = (theme) => ({
     padding: theme.spacing(1)
   },
   totalOrSelectionCountRoot: {
-    paddingRight: theme.spacing(1)
+    paddingLeft: theme.spacing(1)
   },
   totalOrSelectionCountHighlight: 
     theme.palette.type === "light"
