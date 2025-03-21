@@ -343,36 +343,13 @@ export class MTableToolbar extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const localization = {
-      ...MTableToolbar.defaultProps.localization,
-      ...this.props.localization,
-    };
-    const title =
-      this.props.showTextRowsSelected &&
-      this.props.selectedRows &&
-      this.props.selectedRows.length > 0
-        ? typeof localization.nRowsSelected === "function"
-          ? localization.nRowsSelected(this.props.selectedRows.length, this.props.data.length)
-          : localization.nRowsSelected.replace(
-              "{0}",
-              this.props.selectedRows.length
-            )
-            .replace(
-              "{1}",
-              this.props.data.length
-            )
-        : this.props.showTitle
+
+    const title = this.props.showTitle
         ? this.props.title
         : null;
+
     return (
-        <Toolbar
-          className={classNames(classes.root, {
-            [classes.highlight]:
-              this.props.showTextRowsSelected &&
-              this.props.selectedRows &&
-              this.props.selectedRows.length > 0,
-          })}
-        >
+        <Toolbar className={classes.root}>
           {title && this.renderToolbarTitle(title)}
           {this.props.searchFieldAlignment === "left" && this.renderSearch()}
           {this.props.toolbarButtonAlignment === "left" && this.renderActions()}
@@ -391,6 +368,7 @@ MTableToolbar.defaultProps = {
   localization: {
     addRemoveColumns: "Add or remove columns",
     nRowsSelected: "{0} row(s) selected",
+    totalRowCount: "{0} row(s)",
     showColumnsTitle: "Show Columns",
     showColumnsAriaLabel: "Show Columns",
     exportTitle: "Export",
@@ -453,16 +431,6 @@ export const styles = (theme) => ({
   root: {
     paddingRight: theme.spacing(1),
   },
-  highlight:
-    theme.palette.type === "light"
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
   spacer: {
     flex: "1 1 10%",
   },

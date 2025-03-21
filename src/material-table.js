@@ -730,46 +730,23 @@ export default class MaterialTable extends React.Component {
   renderFooter() {
     const props = this.getProps();
 
-    const localization = {
-      ...MaterialTable.defaultProps.localization.pagination,
-      ...this.props.localization.pagination,
-    };
-
-    const isOutsidePageNumbers = this.isOutsidePageNumbers(props);
-    const currentPage = isOutsidePageNumbers
-      ? Math.min(
-          props.page,
-          Math.floor(props.totalCount / this.state.pageSize)
-        )
-      : this.state.currentPage;
-    const totalCount = isOutsidePageNumbers
-      ? props.totalCount
-      : this.state.data.length;
-
-    if(props.options.showTotalCount){
-      const totalCountText = !localization.labelDisplayedRows || localization.labelDisplayedRows === MaterialTable.defaultProps.localization.pagination.labelDisplayedRows
-        ? `${totalCount} row(s)` 
-        : localization.labelDisplayedRows.replace("{0}", totalCount);
-
-      return (
-        <div style={{padding: "10px 15px"}}>
-          <Typography
-            variant="h6"
-            style={{
-              visibility: this.state.isLoading ? "hidden" : "visible",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-            role="alert"
-          >
-            {totalCountText}
-          </Typography>
-      </div>
-      )
-    }
-
     if (props.options.paging) {
+      const localization = {
+        ...MaterialTable.defaultProps.localization.pagination,
+        ...this.props.localization.pagination,
+      };
+  
+      const isOutsidePageNumbers = this.isOutsidePageNumbers(props);
+      const currentPage = isOutsidePageNumbers
+        ? Math.min(
+            props.page,
+            Math.floor(props.totalCount / this.state.pageSize)
+          )
+        : this.state.currentPage;
+      const totalCount = isOutsidePageNumbers
+        ? props.totalCount
+        : this.state.data.length;
+
       return (
         <Table>
           <TableFooter style={{ display: "grid" }}>
@@ -1035,13 +1012,26 @@ export default class MaterialTable extends React.Component {
               }}
             />
           )}
-          
+
+          <TotalOrSelectionCount 
+            getProps={this.getProps} 
+            isOutsidePageNumbersFunc={this.isOutsidePageNumbers}
+            data={this.state.data}
+            selectedRows={this.state.selectedCount > 0
+              ? this.state.originalData.filter((a) => {
+                  return a.tableData.checked;
+                })
+              : []}
+            isLoading={this.state.isLoading}
+          />
+
           {props.options.footerPosition === "top" ||
           props.options.footerPosition === "both"
             ? this.renderFooter()
             : null}
             
           <UnderToolbarActions actions={props.actions} components={props.components} />
+
           {props.options.grouping && (
             <props.components.Groupbar
               icons={props.icons}
@@ -1220,7 +1210,20 @@ var style = (theme) => ({
   underToolbarActions:{
     color: theme.palette.text.secondary,
     padding: theme.spacing(1)
-  }
+  },
+  totalOrSelectionCountRoot: {
+    paddingRight: theme.spacing(1)
+  },
+  totalOrSelectionCountHighlight: 
+    theme.palette.type === "light"
+      ? {
+          color: theme.palette.secondary.main,
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+        }
+      : {
+          color: theme.palette.text.primary,
+          backgroundColor: theme.palette.secondary.dark,
+        }
 });
 
 const ScrollBar = withStyles(style)(({ double, children, classes }) => {
@@ -1252,4 +1255,68 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, classes })
         />
     </div>
   );
+});
+
+const TotalOrSelectionCount = withStyles(style)(({getProps, isOutsidePageNumbersFunc, data, selectedRows, isLoading}) => {
+  const props = getProps();
+
+  const localization = {
+    ...MTableToolbar.defaultProps.localization,
+    ...props.localization,
+  };
+
+  let text;
+
+  if(props.options.showTextRowsSelected &&
+    selectedRows &&
+    selectedRows.length > 0){
+
+      if(typeof localization.nRowsSelected === "function"){
+        text = localization.nRowsSelected(selectedRows.length, data.length);
+      }
+      else{
+        text = localization.nRowsSelected.replace(
+          "{0}",
+          selectedRows.length
+        )
+        .replace(
+          "{1}",
+          data.length
+        );
+      }
+    }
+    else if(props.options.showTextRowsSelected || props.options.showTotalCount){
+      const isOutsidePageNumbers = isOutsidePageNumbersFunc(props);
+      const totalCount = isOutsidePageNumbers
+        ? props.totalCount
+        : data.length;
+
+      text = localization.totalRowCount.replace("{0}", totalCount)
+    }
+
+    if(!text){
+      return null;
+    }
+
+    return (
+      <div className={classNames(classes.totalOrSelectionCountRoot, {
+        [classes.totalOrSelectionCountHighlight]:
+          props.options.showTextRowsSelected &&
+          selectedRows &&
+          selectedRows.length > 0,
+      })}>
+        <Typography
+          variant="h6"
+          style={{
+            visibility: isLoading ? "hidden" : "visible",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+          role="alert"
+        >
+          {text}
+        </Typography>
+    </div>
+    )
 });

@@ -402,6 +402,7 @@ export interface Localization {
   toolbar?: {
     addRemoveColumns?: React.ReactNode;
     nRowsSelected?: React.ReactNode | ((rowCount: number) => React.ReactNode);
+    totalRowCount?: React.ReactNode | ((rowCount: number) => React.ReactNode);
     showColumnsTitle?: React.ReactNode;
     showColumnsAriaLabel?: string;
     exportTitle?: React.ReactNode;
