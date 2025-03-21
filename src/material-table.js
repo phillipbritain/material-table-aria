@@ -2,7 +2,6 @@
 import Table from "@material-ui/core/Table";
 import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
 import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import DoubleScrollbar from "react-double-scrollbar";
@@ -14,6 +13,8 @@ import { debounce } from "debounce";
 import equal from "fast-deep-equal";
 import { withStyles } from "@material-ui/core";
 import * as CommonValues from "./utils/common-values";
+import { lighten } from "@material-ui/core/styles/colorManipulator";
+import classNames from "classnames";
 
 /* eslint-enable no-unused-vars */
 
