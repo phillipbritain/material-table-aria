@@ -1297,13 +1297,14 @@ const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, se
     }
 
     return (
-      <div className={classNames(classes.totalOrSelectionCountRoot, {
-        [classes.totalOrSelectionCountHighlight]:
-          showTextRowsSelected &&
-          selectedRows &&
-          selectedRows.length > 0,
-       [classes.hidden]: !showTextRowsSelected && !showTotalCount // hiding instead of conditionally rendering so screen reader can watch for alert role
-      })}>
+      <div 
+        className={classNames(classes.totalOrSelectionCountRoot, {
+          [classes.totalOrSelectionCountHighlight]:
+            showTextRowsSelected &&
+            selectedRows &&
+            selectedRows.length > 0,
+          [classes.hidden]: !showTextRowsSelected && !showTotalCount})} // hiding instead of conditionally rendering so screen reader can watch for alert role
+        role="alert">
         <Typography
           variant="h6"
           style={{
@@ -1312,10 +1313,9 @@ const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, se
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
-          role="alert"
         >
           {text}
         </Typography>
     </div>
-    )
+    );
 });
