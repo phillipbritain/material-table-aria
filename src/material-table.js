@@ -1230,7 +1230,10 @@ var style = (theme) => ({
       : {
           color: theme.palette.text.primary,
           backgroundColor: theme.palette.secondary.dark,
-        }
+        },
+  hidden: {
+    display: "none"
+  }
 });
 
 const ScrollBar = withStyles(style)(({ double, children, classes }) => {
@@ -1293,18 +1296,13 @@ const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, se
       text = localization.totalRowCount.replace("{0}", totalCount)
     }
 
-    if(!text){
-      return null;
-    }
-
-    console.log("text", text);
-
     return (
       <div className={classNames(classes.totalOrSelectionCountRoot, {
         [classes.totalOrSelectionCountHighlight]:
           showTextRowsSelected &&
           selectedRows &&
           selectedRows.length > 0,
+       [classes.hidden]: !showTextRowsSelected && !showTotalCount // hiding instead of conditionally rendering so screen reader can watch for alert role
       })}>
         <Typography
           variant="h6"

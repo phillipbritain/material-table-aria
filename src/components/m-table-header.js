@@ -138,9 +138,6 @@ export class MTableHeader extends React.Component {
           if(this.props.orderBy === columnDef.tableData.id){
             ariaSort = this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : null;
           }
-          else {
-            ariaSort = "none";
-          }
 
           content = (
             <TableSortLabel
