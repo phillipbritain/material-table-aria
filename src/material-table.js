@@ -1037,11 +1037,7 @@ export default class MaterialTable extends React.Component {
             ? this.renderFooter()
             : null}
             
-          <UnderToolbarActions actions={props.actions} components={props.components} selectedRows={this.state.selectedCount > 0
-              ? this.state.originalData.filter((a) => {
-                  return a.tableData.checked;
-                })
-              : []} />
+          <UnderToolbarActions actions={props.actions} components={props.components} data={this.state.data} />
 
           {props.options.grouping && (
             <props.components.Groupbar
@@ -1255,7 +1251,7 @@ const ScrollBar = withStyles(style)(({ double, children, classes }) => {
   }
 });
 
-const UnderToolbarActions = withStyles(style)(({ actions, components, selectedRows, classes }) => {
+const UnderToolbarActions = withStyles(style)(({ actions, components, data, classes }) => {
   const underToolbarActions = actions?.filter((a) => a.position === "underToolbar");
   if(!underToolbarActions || !underToolbarActions.length){
     return null;
@@ -1266,7 +1262,7 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, selectedRo
         <components.Actions
           actions={underToolbarActions}
           components={components}
-          data={selectedRows}
+          data={data}
         />
     </div>
   );
