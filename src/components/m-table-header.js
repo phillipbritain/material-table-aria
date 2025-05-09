@@ -145,7 +145,7 @@ export class MTableHeader extends React.Component {
               active={this.props.orderBy === columnDef.tableData.id}
               direction={this.props.orderDirection || "asc"}
               hideSortIcon={true}
-              title={`Sort by ${columnDef.title}`}
+              aria-label={`Sort by ${columnDef.title}`}
               onClick={() => {
                 const orderDirection =
                   columnDef.tableData.id !== this.props.orderBy
@@ -271,21 +271,12 @@ export class MTableHeader extends React.Component {
         style={{ ...this.props.headerStyle, width: selectionWidth }}
       >
         {this.props.showSelectAllCheckbox && (
-          <Checkbox
-            indeterminate={
-              this.props.selectedCount > 0 &&
-              this.props.selectedCount < this.props.dataCount
-            }
-            checked={
-              this.props.dataCount > 0 &&
-              this.props.selectedCount === this.props.dataCount
-            }
-            onChange={(event, checked) =>
-              this.props.onAllSelected && this.props.onAllSelected(checked)
-            }
-            inputProps={{"aria-label": "Select All"}}
-            {...this.props.options.headerSelectionProps}
-          />
+          <>
+            <label for="selectAllCheckbox">Select All</label>
+            <input type="checkbox" id="selectAllCheckbox" style={{display: "block", marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={this.props.dataCount > 0 && this.props.selectedCount === this.props.dataCount} onChange={(e) => {
+              this.props.onAllSelected && this.props.onAllSelected(e.target.checked)
+            }} {...this.props.options.headerSelectionProps} />
+          </>
         )}
       </TableCell>
     );
