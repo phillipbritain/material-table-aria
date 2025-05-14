@@ -272,8 +272,7 @@ export class MTableHeader extends React.Component {
       >
         {this.props.showSelectAllCheckbox && (
           <>
-            <label for="selectAllCheckbox">Select All</label>
-            <input type="checkbox" id="selectAllCheckbox" style={{display: "block", marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={this.props.dataCount > 0 && this.props.selectedCount === this.props.dataCount} onChange={(e) => {
+            <input type="checkbox" id="selectAllCheckbox" aria-label="Select All" style={{display: "block", marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={this.props.dataCount > 0 && this.props.selectedCount === this.props.dataCount} onChange={(e) => {
               this.props.onAllSelected && this.props.onAllSelected(e.target.checked)
             }} {...this.props.options.headerSelectionProps} />
           </>

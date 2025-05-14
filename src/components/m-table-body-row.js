@@ -134,7 +134,7 @@ export default class MTableBodyRow extends React.Component {
         key="key-selection-column"
         style={{ width: selectionWidth }}
       >
-        <input type="checkbox" id="selectRowCheckbox" style={{marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={this.props.data.tableData.checked === true} onChange={(event) =>
+        <input type="checkbox" style={{marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={this.props.data.tableData.checked === true} onChange={(event) =>
             this.props.onRowSelected(event, this.props.path, this.props.data)} value={this.props.data.tableData.id.toString()} aria-label="Select Row" {...checkboxProps} />
       </TableCell>
     );
