@@ -12,6 +12,14 @@ export { MaterialTable as MTable };
 
 const styles = (theme) => ({
   root: {
+    '& th': {
+      fontWeight: "bold",
+      position: "relative",
+      padding: "0.125em 0.25em"
+    },
+    '& td': {
+      padding: "0.125em 0.25em"
+    },
     '& th button': {
       padding: "4px",
       margin: "1px",

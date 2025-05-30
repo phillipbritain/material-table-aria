@@ -158,6 +158,7 @@ export class MTableToolbar extends React.Component {
             inputProps: {
               "aria-label": localization.searchAriaLabel,
             },
+            classes: { input: this.props.classes.searchFieldInput}
           }}
         />
       );
@@ -432,10 +433,12 @@ export const styles = (theme) => ({
   },
   searchField: {
     minWidth: 150,
-    paddingLeft: theme.spacing(2),
-    "&::placeholder": {
+    paddingLeft: theme.spacing(2)
+  },
+  searchFieldInput: {
+    '&::placeholder': {
       opacity: 1,
-    }
+    },
   },
   formControlLabel: {
     paddingLeft: theme.spacing(1),
