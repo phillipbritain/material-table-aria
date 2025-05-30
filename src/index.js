@@ -11,6 +11,69 @@ MaterialTable.propTypes = propTypes;
 export { MaterialTable as MTable };
 
 const styles = (theme) => ({
+  root: {
+    '& th button': {
+      padding: "4px",
+      margin: "1px",
+      fontSize: "100%",
+      fontWeight: "bold",
+      background: "transparent",
+      border: "none",
+      display: "inline",
+      right: 0,
+      left: 0,
+      top: 0,
+      bottom: 0,
+      width: "100%",
+      textAlign: "left",
+      outline: "none",
+      cursor: "pointer"
+    },
+    '& th button span': {
+      position: "absolute",
+      right: "4px"
+    },
+    '& th[aria-sort="descending"] span::after': {
+      content: "▼",
+      color: "currentcolor",
+      fontSize: "100%",
+      top: 0
+    },
+    '& th[aria-sort="ascending"] span::after': {
+      content: "▲",
+      color: "currentcolor",
+      fontSize: "100%",
+      top: 0
+    },
+    '& th button:focus': {
+      padding: "2px",
+      border: "2px solid currentcolor",
+      backgroundColor: "#e5f4ff"
+    },
+    '& th button:hover': {
+      padding: "2px",
+      border: "2px solid currentcolor",
+      backgroundColor: "#e5f4ff"
+    },
+    '& th button:focus span': {
+      right: 2
+    },
+    '& th button:hover span': {
+      right: 2
+    },
+    '& th:not([aria-sort]) button:focus span::after': {
+      content: "▼",
+      color: "currentcolor",
+      fontSize: "100%",
+      top: 0
+    },
+    '& th:not([aria-sort]) button:hover span::after': {
+      content: "▼",
+      color: "currentcolor",
+      fontSize: "100%",
+      top: 0
+    }
+  },
   paginationRoot: {
     width: "100%",
   },

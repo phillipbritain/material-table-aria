@@ -111,67 +111,38 @@ export class MTableHeader extends React.Component {
       .map((columnDef, index) => {
         let content = columnDef.title;
 
-        if (this.props.draggable) {
-          content = (
-            <Draggable
-              key={columnDef.tableData.id}
-              draggableId={columnDef.tableData.id.toString()}
-              index={index}
-            >
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                >
-                  {columnDef.title}
-                </div>
-              )}
-            </Draggable>
-          );
-        }
-
         let ariaSort;
 
         if (columnDef.sorting !== false && this.props.sorting) {
           
           if(this.props.orderBy === columnDef.tableData.id){
-            ariaSort = this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : null;
+            ariaSort = this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : undefined;
           }
 
           content = (
-            <TableSortLabel
-              IconComponent={this.props.icons.SortArrow}
-              active={this.props.orderBy === columnDef.tableData.id}
-              direction={this.props.orderDirection || "asc"}
-              hideSortIcon={true}
-              aria-label={`Sort by ${columnDef.title}`}
-              onClick={() => {
-                const orderDirection =
-                  columnDef.tableData.id !== this.props.orderBy
-                    ? "asc"
-                    : this.props.orderDirection === "asc"
-                    ? "desc"
-                    : this.props.orderDirection === "desc" &&
-                      this.props.thirdSortClick
-                    ? ""
-                    : this.props.orderDirection === "desc" &&
-                      !this.props.thirdSortClick
-                    ? "asc"
-                    : this.props.orderDirection === ""
-                    ? "asc"
-                    : "desc";
-                this.props.onOrderChange(
-                  columnDef.tableData.id,
-                  orderDirection
-                );
-              }}
-            >
-              <>
-                <this.props.icons.Sortable />
-                {content}
-              </>
-            </TableSortLabel>
+            <button onClick={() => {
+              const orderDirection =
+                columnDef.tableData.id !== this.props.orderBy
+                  ? "asc"
+                  : this.props.orderDirection === "asc"
+                  ? "desc"
+                  : this.props.orderDirection === "desc" &&
+                    this.props.thirdSortClick
+                  ? ""
+                  : this.props.orderDirection === "desc" &&
+                    !this.props.thirdSortClick
+                  ? "asc"
+                  : this.props.orderDirection === ""
+                  ? "asc"
+                  : "desc";
+              this.props.onOrderChange(
+                columnDef.tableData.id,
+                orderDirection
+              );
+            }}>
+              {content}
+              <span aria-hidden="true"></span>
+            </button>
           );
         }
 

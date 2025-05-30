@@ -158,6 +158,11 @@ export class MTableToolbar extends React.Component {
             inputProps: {
               "aria-label": localization.searchAriaLabel,
             },
+            sx: {
+              '&::placeholder': {
+                opacity: 1,
+              },
+            },
           }}
         />
       );
