@@ -34,13 +34,13 @@ const styles = (theme) => ({
       right: "4px"
     },
     '& th[aria-sort="descending"] span::after': {
-      content: "▼",
+      content: `"▼"`,
       color: "currentcolor",
       fontSize: "100%",
       top: 0
     },
     '& th[aria-sort="ascending"] span::after': {
-      content: "▲",
+      content: `"▲"`,
       color: "currentcolor",
       fontSize: "100%",
       top: 0
@@ -62,13 +62,13 @@ const styles = (theme) => ({
       right: 2
     },
     '& th:not([aria-sort]) button:focus span::after': {
-      content: "▼",
+      content: `"▼"`,
       color: "currentcolor",
       fontSize: "100%",
       top: 0
     },
     '& th:not([aria-sort]) button:hover span::after': {
-      content: "▼",
+      content: `"▼"`,
       color: "currentcolor",
       fontSize: "100%",
       top: 0
