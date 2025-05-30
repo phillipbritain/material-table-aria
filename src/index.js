@@ -15,10 +15,10 @@ const styles = (theme) => ({
     '& th': {
       fontWeight: "bold",
       position: "relative",
-      padding: "0.125em 0.25em"
+      padding: "0.125em 0.25em !important"
     },
     '& td': {
-      padding: "0.125em 0.25em"
+      padding: "0.125em 0.25em !important"
     },
     '& th button': {
       padding: "4px",
