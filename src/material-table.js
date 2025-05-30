@@ -818,6 +818,7 @@ export default class MaterialTable extends React.Component {
 
   renderTable = (props) => (
     <Table
+      classes={{root: props.classes.root}}
       style={{
         tableLayout:
           props.options.fixedColumns &&
