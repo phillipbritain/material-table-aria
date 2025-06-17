@@ -1288,7 +1288,7 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, data, clas
 
 const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, selectedRows, isLoading, showTextRowsSelected, showTotalCount, localization, totalCount, classes}) => {
 
-    const text = useMemo(() => {
+    const text = React.useMemo(() => {
       if(showTextRowsSelected &&
         selectedRows &&
         selectedRows.length > 0){
