@@ -140,9 +140,7 @@ export class MTableHeader extends React.Component {
                 orderDirection
               );
             }}>
-              <span class="material-symbols-outlined">
-                swap_vert
-              </span>
+              <this.props.icons.NextPage />
               {content}
               <span aria-hidden="true"></span>
             </button>
