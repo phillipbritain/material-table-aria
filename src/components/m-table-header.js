@@ -140,6 +140,9 @@ export class MTableHeader extends React.Component {
                 orderDirection
               );
             }}>
+              <span class="material-symbols-outlined">
+                swap_vert
+              </span>
               {content}
               <span aria-hidden="true"></span>
             </button>
@@ -228,7 +231,7 @@ export class MTableHeader extends React.Component {
       </TableCell>
     );
   }
-  
+
   renderSelectionHeader() {
     const selectionWidth = CommonValues.selectionMaxWidth(
       this.props,
