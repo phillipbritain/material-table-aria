@@ -120,7 +120,7 @@ export class MTableHeader extends React.Component {
           }
 
           content = (
-            <button onClick={() => {
+            <button style={{display: "flex"}} onClick={() => {
               const orderDirection =
                 columnDef.tableData.id !== this.props.orderBy
                   ? "asc"
@@ -140,7 +140,7 @@ export class MTableHeader extends React.Component {
                 orderDirection
               );
             }}>
-              <this.props.icons.NextPage />
+              <this.props.icons.Sortable style={{position: "relative"}} />
               {content}
               <span aria-hidden="true"></span>
             </button>

@@ -826,6 +826,9 @@ export default class MaterialTable extends React.Component {
               ? this.state.groupedDataLength
               : this.state.data.length;
 
+    console.log("dataCount", dataCount);
+    console.log("this.props.selectedCount", this.props.selectedCount);
+
     return (
     <>
 
