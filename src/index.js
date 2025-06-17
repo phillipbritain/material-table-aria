@@ -69,13 +69,13 @@ const styles = (theme) => ({
     '& th button:hover span': {
       right: 2
     },
-    '& th:not([aria-sort]) button:focus span::after': {
+    '& th[aria-sort="none"] button:focus span::after': {
       content: `"▼"`,
       color: "currentcolor",
       fontSize: "100%",
       top: 0
     },
-    '& th:not([aria-sort]) button:hover span::after': {
+    '& th[aria-sort="none"] button:hover span::after': {
       content: `"▼"`,
       color: "currentcolor",
       fontSize: "100%",

@@ -817,6 +817,25 @@ export default class MaterialTable extends React.Component {
   }
 
   renderTable = (props) => (
+    <>
+
+      {props.options.showSelectAllCheckbox && <input type="checkbox" id="selectAllCheckbox" aria-label="Select All" style={{display: "block", marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={props.parentChildData
+              ? this.state.treefiedDataLength
+              : this.state.columns.filter(
+                  (col) => col.tableData.groupOrder > -1
+                ).length > 0
+              ? this.state.groupedDataLength
+              : this.state.data.length > 0 && this.state.selectedCount === props.parentChildData
+              ? this.state.treefiedDataLength
+              : this.state.columns.filter(
+                  (col) => col.tableData.groupOrder > -1
+                ).length > 0
+              ? this.state.groupedDataLength
+              : this.state.data.length} onChange={(e) => {
+          this.onAllSelected && this.onAllSelected(e.target.checked)
+      }} {...props.options.headerSelectionProps}
+       /> }
+
     <Table
       classes={{root: props.classes.root}}
       style={{
@@ -839,15 +858,13 @@ export default class MaterialTable extends React.Component {
           headerStyle={props.options.headerStyle}
           icons={props.icons}
           selectedCount={this.state.selectedCount}
-          dataCount={
-            props.parentChildData
+          dataCount={props.parentChildData
               ? this.state.treefiedDataLength
               : this.state.columns.filter(
                   (col) => col.tableData.groupOrder > -1
                 ).length > 0
               ? this.state.groupedDataLength
-              : this.state.data.length
-          }
+              : this.state.data.length}
           hasDetailPanel={!!props.detailPanel}
           detailPanelColumnAlignment={props.options.detailPanelColumnAlignment}
           showActionsColumn={
@@ -856,7 +873,6 @@ export default class MaterialTable extends React.Component {
               (a) => a.position === "row" || typeof a === "function"
             ).length > 0
           }
-          showSelectAllCheckbox={props.options.showSelectAllCheckbox}
           orderBy={this.state.orderBy}
           orderDirection={this.state.orderDirection}
           onAllSelected={this.onAllSelected}
@@ -915,6 +931,7 @@ export default class MaterialTable extends React.Component {
         isTableLoading={this.state.isLoading}
       />
     </Table>
+    </>
   );
 
   getColumnsWidth = (props, count) => {
@@ -1270,33 +1287,34 @@ const UnderToolbarActions = withStyles(style)(({ actions, components, data, clas
 });
 
 const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, selectedRows, isLoading, showTextRowsSelected, showTotalCount, localization, totalCount, classes}) => {
-  let text;
 
-  if(showTextRowsSelected &&
-    selectedRows &&
-    selectedRows.length > 0){
-
-      if(typeof localization.nRowsSelected === "function"){
-        text = localization.nRowsSelected(selectedRows.length, data.length);
-      }
-      else{
-        text = localization.nRowsSelected.replace(
-          "{0}",
-          selectedRows.length
-        )
-        .replace(
-          "{1}",
-          data.length
-        );
-      }
-    }
-    else if(showTextRowsSelected || showTotalCount){
-      totalCount = isOutsidePageNumbers
-        ? totalCount
-        : data.length;
-
-      text = localization.totalRowCount.replace("{0}", totalCount)
-    }
+    const text = useMemo(() => {
+      if(showTextRowsSelected &&
+        selectedRows &&
+        selectedRows.length > 0){
+    
+          if(typeof localization.nRowsSelected === "function"){
+            text = localization.nRowsSelected(selectedRows.length, data.length);
+          }
+          else{
+            text = localization.nRowsSelected.replace(
+              "{0}",
+              selectedRows.length
+            )
+            .replace(
+              "{1}",
+              data.length
+            );
+          }
+        }
+        else if(showTextRowsSelected || showTotalCount){
+          totalCount = isOutsidePageNumbers
+            ? totalCount
+            : data.length;
+    
+          text = localization.totalRowCount.replace("{0}", totalCount)
+        }
+    }, [showTextRowsSelected, showTotalCount, selectedRows?.length, data?.length, totalCount, isOutsidePageNumbers, localization?.nRowsSelected, localization?.totalRowCount])
 
     return (
       <div 

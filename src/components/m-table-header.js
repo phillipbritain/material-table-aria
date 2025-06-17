@@ -116,7 +116,7 @@ export class MTableHeader extends React.Component {
         if (columnDef.sorting !== false && this.props.sorting) {
           
           if(this.props.orderBy === columnDef.tableData.id){
-            ariaSort = this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : undefined;
+            ariaSort = this.props.orderDirection === "desc" ? "descending" : this.props.orderDirection === "asc" ? "ascending" : "none";
           }
 
           content = (
@@ -228,6 +228,7 @@ export class MTableHeader extends React.Component {
       </TableCell>
     );
   }
+  
   renderSelectionHeader() {
     const selectionWidth = CommonValues.selectionMaxWidth(
       this.props,
@@ -240,15 +241,7 @@ export class MTableHeader extends React.Component {
         key="key-selection-column"
         className={this.props.classes.header}
         style={{ ...this.props.headerStyle, width: selectionWidth }}
-      >
-        {this.props.showSelectAllCheckbox && (
-          <>
-            <input type="checkbox" id="selectAllCheckbox" aria-label="Select All" style={{display: "block", marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={this.props.dataCount > 0 && this.props.selectedCount === this.props.dataCount} onChange={(e) => {
-              this.props.onAllSelected && this.props.onAllSelected(e.target.checked)
-            }} {...this.props.options.headerSelectionProps} />
-          </>
-        )}
-      </TableCell>
+      />
     );
   }
 
