@@ -1294,10 +1294,10 @@ const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, se
         selectedRows.length > 0){
     
           if(typeof localization.nRowsSelected === "function"){
-            text = localization.nRowsSelected(selectedRows.length, data.length);
+            return localization.nRowsSelected(selectedRows.length, data.length);
           }
           else{
-            text = localization.nRowsSelected.replace(
+            return localization.nRowsSelected.replace(
               "{0}",
               selectedRows.length
             )
@@ -1312,7 +1312,7 @@ const TotalOrSelectionCount = withStyles(style)(({isOutsidePageNumbers, data, se
             ? totalCount
             : data.length;
     
-          text = localization.totalRowCount.replace("{0}", totalCount)
+          return localization.totalRowCount.replace("{0}", totalCount)
         }
     }, [showTextRowsSelected, showTotalCount, selectedRows?.length, data?.length, totalCount, isOutsidePageNumbers, localization?.nRowsSelected, localization?.totalRowCount])
 
