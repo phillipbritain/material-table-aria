@@ -816,22 +816,22 @@ export default class MaterialTable extends React.Component {
     }
   }
 
-  renderTable = (props) => (
+  renderTable = (props) => {
+
+    let dataCount = props.parentChildData
+              ? this.state.treefiedDataLength
+              : this.state.columns.filter(
+                  (col) => col.tableData.groupOrder > -1
+                ).length > 0
+              ? this.state.groupedDataLength
+              : this.state.data.length;
+
+    return (
     <>
 
-      {props.options.showSelectAllCheckbox && <input type="checkbox" id="selectAllCheckbox" aria-label="Select All" style={{display: "block", marginLeft: "10px", transform: "scale(1.5)", cursor: "pointer"}} checked={props.parentChildData
-              ? this.state.treefiedDataLength
-              : this.state.columns.filter(
-                  (col) => col.tableData.groupOrder > -1
-                ).length > 0
-              ? this.state.groupedDataLength
-              : this.state.data.length > 0 && this.state.selectedCount === props.parentChildData
-              ? this.state.treefiedDataLength
-              : this.state.columns.filter(
-                  (col) => col.tableData.groupOrder > -1
-                ).length > 0
-              ? this.state.groupedDataLength
-              : this.state.data.length} onChange={(e) => {
+      {props.options.selection && props.options.showSelectAllCheckbox && <input type="checkbox" id="selectAllCheckbox" aria-label="Select All" style={{position: "absolute", top: "10px", left: "10px", zIndex: "99", transform: "scale(1.5)", cursor: "pointer"}} 
+      checked={dataCount > 0 && this.props.selectedCount === dataCount}
+      onChange={(e) => {
           this.onAllSelected && this.onAllSelected(e.target.checked)
       }} {...props.options.headerSelectionProps}
        /> }
@@ -858,13 +858,7 @@ export default class MaterialTable extends React.Component {
           headerStyle={props.options.headerStyle}
           icons={props.icons}
           selectedCount={this.state.selectedCount}
-          dataCount={props.parentChildData
-              ? this.state.treefiedDataLength
-              : this.state.columns.filter(
-                  (col) => col.tableData.groupOrder > -1
-                ).length > 0
-              ? this.state.groupedDataLength
-              : this.state.data.length}
+          dataCount={dataCount}
           hasDetailPanel={!!props.detailPanel}
           detailPanelColumnAlignment={props.options.detailPanelColumnAlignment}
           showActionsColumn={
@@ -932,7 +926,7 @@ export default class MaterialTable extends React.Component {
       />
     </Table>
     </>
-  );
+  )};
 
   getColumnsWidth = (props, count) => {
     let result = [];
