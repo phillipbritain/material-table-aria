@@ -826,14 +826,11 @@ export default class MaterialTable extends React.Component {
               ? this.state.groupedDataLength
               : this.state.data.length;
 
-    console.log("dataCount", dataCount);
-    console.log("this.props.selectedCount", this.props.selectedCount);
-
     return (
     <>
 
       {props.options.selection && props.options.showSelectAllCheckbox && <input type="checkbox" id="selectAllCheckbox" aria-label="Select All" style={{position: "absolute", top: "10px", left: "10px", zIndex: "99", transform: "scale(1.5)", cursor: "pointer"}} 
-      checked={dataCount > 0 && this.props.selectedCount === dataCount}
+      checked={dataCount > 0 && this.state.selectedCount === dataCount}
       onChange={(e) => {
           this.onAllSelected && this.onAllSelected(e.target.checked)
       }} {...props.options.headerSelectionProps}
