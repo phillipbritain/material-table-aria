@@ -243,7 +243,7 @@ export class MTableHeader extends React.Component {
         className={this.props.classes.header}
         style={{ ...this.props.headerStyle, width: selectionWidth }}
       >
-        Select Record
+        <div style={{overflow: "hidden", width: "0px !important", height: "0px !important" }}>Selection</div>
       </TableCell>
     );
   }
